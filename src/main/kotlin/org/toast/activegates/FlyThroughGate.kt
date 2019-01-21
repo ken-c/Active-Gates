@@ -8,9 +8,11 @@ import com.fs.starfarer.api.util.Misc
 
 class FlyThroughGate : BaseCommandPlugin() {
 
-    override fun execute(ruleId: String?, dialog: InteractionDialogAPI?,
-                         params: List<Misc.Token>,
-                         memoryMap: Map<String, MemoryAPI>): Boolean {
+    override fun execute(
+        ruleId: String?, dialog: InteractionDialogAPI?,
+        params: List<Misc.Token>,
+        memoryMap: Map<String, MemoryAPI>
+    ): Boolean {
         if (dialog == null) return false
 
         val textPanel = dialog.textPanel
@@ -39,7 +41,12 @@ class FlyThroughGate : BaseCommandPlugin() {
 
         // Pay fuel cost (or show error if player lacks fuel)
         val cargo = playerFleet.cargo
-        val fuelCostOfJump = ActiveGates.jumpCostInFuel(Misc.getDistanceLY(playerFleet.locationInHyperspace, newSystem.location))
+        val fuelCostOfJump = ActiveGates.jumpCostInFuel(
+            Misc.getDistanceLY(
+                playerFleet.locationInHyperspace,
+                newSystem.location
+            )
+        )
 
         if (cargo.fuel >= fuelCostOfJump) {
             cargo.removeFuel(fuelCostOfJump.toFloat())

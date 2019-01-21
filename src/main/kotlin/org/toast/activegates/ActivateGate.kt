@@ -7,9 +7,11 @@ import com.fs.starfarer.api.util.Misc
 
 class ActivateGate : BaseCommandPlugin() {
 
-    override fun execute(ruleId: String, dialog: InteractionDialogAPI?,
-                         params: List<Misc.Token>,
-                         memoryMap: Map<String, MemoryAPI>): Boolean {
+    override fun execute(
+        ruleId: String, dialog: InteractionDialogAPI?,
+        params: List<Misc.Token>,
+        memoryMap: Map<String, MemoryAPI>
+    ): Boolean {
 
         if (dialog == null) return false
 

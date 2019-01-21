@@ -8,7 +8,12 @@ import com.fs.starfarer.api.util.Misc
 class ShowGateDestinationOptions : PaginatedOptions() {
     override fun doesCommandAddOptions(): Boolean = true
 
-    override fun execute(ruleId: String?, dialog: InteractionDialogAPI?, params: List<Misc.Token>, memoryMap: Map<String, MemoryAPI>?): Boolean {
+    override fun execute(
+        ruleId: String?,
+        dialog: InteractionDialogAPI?,
+        params: List<Misc.Token>,
+        memoryMap: Map<String, MemoryAPI>?
+    ): Boolean {
         super.execute(ruleId, dialog, params, memoryMap)
 
         if (dialog == null) return false
@@ -19,10 +24,21 @@ class ShowGateDestinationOptions : PaginatedOptions() {
 
         for ((index, gate) in activatedGates.withIndex()) {
             if (ActiveGates.inDebugMode) {
-                dialog.textPanel.addParagraph(Strings.debugJumpOptionsAndDistances(index.toString(), gate.distanceFromPlayer, gate.systemName))
+                dialog.textPanel.addParagraph(
+                    Strings.debugJumpOptionsAndDistances(
+                        index.toString(),
+                        gate.distanceFromPlayer,
+                        gate.systemName
+                    )
+                )
             }
 
-            addOption(Strings.menuOptionJumpToSystem(gate.systemName, ActiveGates.jumpCostInFuel(gate.distanceFromPlayer)), gate.systemId)
+            addOption(
+                Strings.menuOptionJumpToSystem(
+                    gate.systemName,
+                    ActiveGates.jumpCostInFuel(gate.distanceFromPlayer)
+                ), gate.systemId
+            )
         }
 
         showOptions()
@@ -35,10 +51,13 @@ class ShowGateDestinationOptions : PaginatedOptions() {
 
         if (optionData is String && optionData in activatedGates.map { it.systemId }) {
             FlyThroughGate().execute(
-                    ruleId = null,
-                    dialog = dialog,
-                    params = listOf(Misc.Token(optionData, Misc.TokenType.LITERAL), Misc.Token(optionText, Misc.TokenType.LITERAL)),
-                    memoryMap = memoryMap
+                ruleId = null,
+                dialog = dialog,
+                params = listOf(
+                    Misc.Token(optionData, Misc.TokenType.LITERAL),
+                    Misc.Token(optionText, Misc.TokenType.LITERAL)
+                ),
+                memoryMap = memoryMap
             )
         }
     }
